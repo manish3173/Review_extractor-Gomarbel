@@ -110,7 +110,7 @@ ollama pull mistral
 Clone the project repository:
 
 ```bash
-git clone [repository-url]
+git clone [https://github.com/manish3173/Review_extractor-Gomarbel.git]]
 cd review-scraper
 ```
 # Review Scraper Application
