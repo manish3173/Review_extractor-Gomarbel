@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@playwright/test": "^1.49.1",
+    "dotenv": "^16.4.7",
+    "node-fetch": "^3.3.2"
+  },
+  "name": "review-scraper",
+  "version": "1.0.0",
+  "description": "A web application that scrapes product reviews from various e-commerce websites using Playwright and Gemini , then displays them in a clean, organized interface.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
