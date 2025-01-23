@@ -1,57 +1,39 @@
-# Review Scraper
+# Review Extractor
 
-A web application that scrapes product reviews from various e-commerce websites using Playwright and Gemini , then displays them in a clean, organized interface. 
+A user-friendly web app that utilizes Playwright and Gemini to gather and display product reviews from various e-commerce sites in an organized format.
+
 
 ## Project Flowchart
 
 ```mermaid
 graph TD;
-    A[Start Server 8000] --> B[User Requests /api/reviews]
-    B --> C[URL Parameter Check]
-    C -->|If missing| D[Return 400 Error URL required]
-    C -->|If present| E[Launch Chromium Headless Mode]
-    E --> F[Navigate to URL and Wait for Body Load]
-    F --> G[Check and Close Popup if exists]
-    G --> H[Review Selectors Cached?]
-    H -->|Yes| I[Use Cached Selectors]
-    H -->|No| J[Process HTML in Chunk]
-    J --> K[Extract Selectors using Gemini api]
-    K --> L[Extract Reviews from HTML]
-    L --> M[Collect Enough Reviews?]
-    M -->|Yes| N[Send Reviews]
-    M -->|No| O[Next Page Button, Click, Wait]
-    N --> P[End Process]
-    O --> L
-    D --> P
+    A[Initialize Web Service] --> B[Receive Endpoint Request]
+    B --> C[Validate Input Parameters]
+    C -->|Invalid| D[Generate Error Response]
+    C -->|Valid| E[Launch Automated Browser]
+    E --> F[Navigate to Target Page]
+    F --> G[Handle Page Interruptions]
+    G --> H{Selector Information Available?}
+    H -->|Cached| I[Retrieve Stored Selectors]
+    H -->|Missing| J[Dynamic Selector Identification]
+    J --> K[Extract Structured Content]
+    K --> L{Extraction Complete?}
+    L -->|Incomplete| M[Navigate to Next Page]
+    L -->|Complete| N[Compile Response Payload]
+    M --> K
+    N --> O[Terminate Process]
+    D --> O
 ```
 
 ## Features
-
-- Scrapes product reviews from any website
-- Clean and responsive UI built with React and Tailwind CSS
-- Real-time review fetching and display
-- Use Gemini LLM to automatically identify the appropriate CSS selectors for reviews on a product page, even when the selectors are dynamically generated.
-- Implement functionality to navigate through all pages of reviews, ensuring complete and thorough data extraction.
-- Configurable maximum review limit
-- Star rating visualization
-- Error handling and loading states
-
-## Tech Stack
-
-- **Frontend:**
-  - React for building the user interface
-  - Tailwind CSS for styling
-  - Vite for development server and build tool
-
-- **Backend:**
-  - Node.js and Express.js for the backend server
-  - Playwright for browser automation and web scraping
-  - Gemini LLM for identifying CSS selectors dynamically
-  - CORS for handling cross-origin requests
-  - dotenv for managing environment variables
-
-
-
+- Gathers product reviews from any e-commerce website.
+- Features a sleek, responsive user interface built with React and Tailwind CSS.
+- Enables real-time retrieval and display of reviews.
+- Leverages Gemini LLM to automatically detect the correct CSS selectors for extracting reviews, even when dynamically generated.
+- Includes functionality to navigate across all review pages, ensuring comprehensive data extraction.
+- Allows configuration of a maximum review limit for user control.
+- Displays star ratings with clear, visual indicators.
+- Incorporates robust error handling and intuitive loading states for a seamless user experience.
 
 
 ## Prerequisites
@@ -66,16 +48,24 @@ graph TD;
 ## Installation
 
 1. Clone the repository
-2. Install dependencies:
+```bash
+git clone https://github.com/manish3173/Review_extractor-Gomarbel.git
+cd Review_extractor-Gomarbel
+```
+3. Install dependencies:
 ```bash
 npm install
 ```
 
 ## Running the Application
 
-1. Create a `.env` file in the backend folder and store the `GOOGLE_API_KEY` there.
+1. Create a `.env` file in the backend folder and store the `GOOGLE_API_KEY` there.```bash
+```bash
+PORT=8000
+GOOGLE_API_KEY=your_api_key_here
+ ``` 
 
-2. Go into the backend folder, start the backend server :
+3. Go into the backend folder, start the backend server :
 ```bash
 node index.js
 ```
@@ -91,15 +81,15 @@ The application will be available at:
 
 ## Usage
 
-1. Open the application in your browser
-2. Enter a product URL in the input field
-3. Set the maximum number of reviews to fetch
-4. Click "Get Reviews" to fetch and display the reviews
-5. Reviews will be displayed with:
-   - Reviewer name
-   - Rating (in stars)
-   - Review date
-   - Review content
+- Launch the application in your browser.
+- Input the product URL into the provided field.
+- Specify the maximum number of reviews you want to retrieve.
+- Click the "Fetch Reviews" button to begin the extraction process.
+- The reviews will be displayed with the following details:
+    1.Reviewer Name
+    2.Star Rating
+    3.Review Date 
+    4.Review Content
 
 ## API Endpoints
 
@@ -117,7 +107,7 @@ Fetches reviews from a specified URL.
   "reviews_count": number,
   "reviews": [
     {
-      "title": string,
+      
       "body": string,
       "rating": number,
       "reviewer": string,
@@ -137,14 +127,4 @@ The application handles various error cases:
 - Missing review elements
 - Server errors
 
-## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
-## License
-
-Feel free to use this project for any purpose.
